@@ -2,6 +2,7 @@ package com.example.labwatch.service;
 
 import com.example.labwatch.model.Activity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ActivityService {
@@ -13,8 +14,17 @@ public interface ActivityService {
     Activity updateActivity(Long id, Activity activity);
     void deleteActivity(Long id);
 
-    // IMPORTANT
+    // Filtering
     List<Activity> getActivitiesByComputer(Long computerId);
-    List<Activity> getTodayActivities();
     List<Activity> getActivitiesByAppName(String appName);
+
+    // Time-based
+    List<Activity> getTodayActivities();
+    List<Activity> getActivitiesBetweenDates(LocalDateTime start, LocalDateTime end);
+
+    // Reporting
+    List<Object[]> getDailyAppUsage();
+
+    // Real-time
+    List<Activity> getActiveActivities();
 }

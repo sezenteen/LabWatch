@@ -62,6 +62,24 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public List<Activity> getActivitiesBetweenDates(LocalDateTime start, LocalDateTime end) {
+        return activityRepository.findByStartedAtBetween(start, end);
+    }
+
+    @Override
+    public List<Object[]> getDailyAppUsage() {
+        LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
+        LocalDateTime endOfDay = LocalDate.now().atTime(23, 59, 59);
+
+        return activityRepository.getAppUsageBetween(startOfDay, endOfDay);
+    }
+
+    @Override
+    public List<Activity> getActiveActivities() {
+        return activityRepository.findByEndedAtIsNull();
+    }
+
+    @Override
     public List<Activity> getActivitiesByAppName(String appName) {
         return activityRepository.findByAppName(appName);
     }

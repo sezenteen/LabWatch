@@ -1,0 +1,50 @@
+package com.example.labwatch.service.implement;
+
+import com.example.labwatch.model.Computer;
+import com.example.labwatch.repository.ComputerRepository;
+import com.example.labwatch.service.ComputerService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class ComputerServiceImpl implements ComputerService {
+
+    private final ComputerRepository computerRepository;
+
+    @Override
+    public List<Computer> getAllComputers() {
+        return computerRepository.findAll();
+    }
+
+    @Override
+    public Computer getComputerById(Long id) {
+        return computerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Computer not found"));
+    }
+
+    @Override
+    public Computer createComputer(Computer computer) {
+        return computerRepository.save(computer);
+    }
+
+    @Override
+    public Computer updateComputer(Long id, Computer computer) {
+        Computer existingComputer = getComputerById(id);
+
+        existingComputer.setComputerName(computer.getComputerName());
+        existingComputer.setLabRoom(computer.getLabRoom());
+        existingComputer.setIpAddress(computer.getIpAddress());
+        existingComputer.setStatus(computer.getStatus());
+        existingComputer.setLastSeen(computer.getLastSeen());
+
+        return computerRepository.save(computer);
+    }
+
+    @Override
+    public void deleteComputer(Long id) {
+        computerRepository.deleteById(id);
+    }
+}

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,6 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "activities")
 public class Activity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idactivities", nullable = false)
     private Long id;
 

@@ -2,7 +2,9 @@ package com.example.labwatch.service.implement;
 
 import com.example.labwatch.model.Activity;
 import com.example.labwatch.repository.ActivityRepository;
+import com.example.labwatch.service.AlertService;
 import com.example.labwatch.service.ActivityService;
+import com.example.labwatch.service.BlockedAppService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.util.List;
 public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityRepository activityRepository;
+    private final BlockedAppService blockedAppService;
+    private final AlertService alertService;
     @Override
     public List<Activity> getAllActivities() {
         return activityRepository.findAll();
@@ -28,7 +32,9 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity createActivity(Activity activity) {
-        return activityRepository.save(activity);
+        Activity savedActivity = activityRepository.save(activity);
+        triggerAlertIfBlocked(savedActivity);
+        return savedActivity;
     }
 
     @Override
@@ -38,9 +44,14 @@ public class ActivityServiceImpl implements ActivityService {
         existingActivity.setComputerID(activity.getComputerID());
         existingActivity.setUsername(activity.getUsername());
         existingActivity.setAppName(activity.getAppName());
+        existingActivity.setWindowTitle(activity.getWindowTitle());
+        existingActivity.setStartedAt(activity.getStartedAt());
+        existingActivity.setEndedAt(activity.getEndedAt());
         existingActivity.setDurationSeconds(activity.getDurationSeconds());
 
-        return activityRepository.save(existingActivity);
+        Activity savedActivity = activityRepository.save(existingActivity);
+        triggerAlertIfBlocked(savedActivity);
+        return savedActivity;
     }
 
     @Override
@@ -51,7 +62,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<Activity> getActivitiesByComputer(Long computerId) {
-        return activityRepository.findByComputerId(computerId);
+        return activityRepository.findByComputerID_Id(computerId);
     }
 
     @Override
@@ -82,5 +93,16 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Activity> getActivitiesByAppName(String appName) {
         return activityRepository.findByAppName(appName);
+    }
+
+    private void triggerAlertIfBlocked(Activity activity) {
+        if (activity.getComputerID() == null || activity.getComputerID().getId() == null) {
+            return;
+        }
+
+        String appName = activity.getAppName();
+        if (appName != null && blockedAppService.isAppBlocked(appName)) {
+            alertService.triggerAlert(activity.getComputerID().getId(), appName);
+        }
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface AlertRepository extends JpaRepository<Alert, Long> {
-    List<Alert> findByComputerID(Long computerID);
+    List<Alert> findByComputerID_Id(Long computerID);
 
     List<Alert> findTop10ByOrderByCreatedAtDesc();
 

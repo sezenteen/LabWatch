@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "alerts")
 public class Alert {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idalerts", nullable = false)
     private Long id;
 
@@ -74,8 +75,5 @@ public class Alert {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public void setComputerID(Long computerId) {
     }
 }

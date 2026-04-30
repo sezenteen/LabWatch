@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
-    List<Activity> findByComputerId(Long computerId);
+    List<Activity> findByComputerID_Id(Long computerId);
 
     List<Activity> findByStartedAtBetween(LocalDateTime start, LocalDateTime end);
 

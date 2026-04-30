@@ -40,7 +40,7 @@ public class ComputerServiceImpl implements ComputerService {
         existingComputer.setStatus(computer.getStatus());
         existingComputer.setLastSeen(computer.getLastSeen());
 
-        return computerRepository.save(computer);
+        return computerRepository.save(existingComputer);
     }
 
     @Override

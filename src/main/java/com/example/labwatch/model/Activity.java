@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -32,10 +33,10 @@ public class Activity {
     private String windowTitle;
 
     @Column(name = "started_at", nullable = false)
-    private Instant startedAt;
+    private LocalDateTime startedAt;
 
     @Column(name = "ended_at")
-    private Instant endedAt;
+    private LocalDateTime endedAt;
 
     @Column(name = "duration_seconds")
     private Integer durationSeconds;
@@ -80,19 +81,19 @@ public class Activity {
         this.windowTitle = windowTitle;
     }
 
-    public Instant getStartedAt() {
+    public LocalDateTime getStartedAt() {
         return startedAt;
     }
 
-    public void setStartedAt(Instant startedAt) {
+    public void setStartedAt(LocalDateTime startedAt) {
         this.startedAt = startedAt;
     }
 
-    public Instant getEndedAt() {
+    public LocalDateTime getEndedAt() {
         return endedAt;
     }
 
-    public void setEndedAt(Instant endedAt) {
+    public void setEndedAt(LocalDateTime endedAt) {
         this.endedAt = endedAt;
     }
 

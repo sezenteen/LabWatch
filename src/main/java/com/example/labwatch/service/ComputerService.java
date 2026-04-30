@@ -13,4 +13,17 @@ public interface ComputerService {
     Computer updateComputer(Long id, Computer computer);
 
     void deleteComputer(Long id);
+
+//    monitoring
+    List<Computer> getOnlineComputers();
+    List<Computer> getOfflineComputers();
+    void heartbeat(Long computerId);
+
+//    filtering
+    List<Computer> getComputersByLab(String labRoom);
+
+//    admin
+    long countAllComputers();
+    long countOnlineComputers();
+    long countOfflineComputers();
 }

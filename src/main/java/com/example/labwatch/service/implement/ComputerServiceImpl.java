@@ -6,6 +6,7 @@ import com.example.labwatch.service.ComputerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,5 +47,43 @@ public class ComputerServiceImpl implements ComputerService {
     @Override
     public void deleteComputer(Long id) {
         computerRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Computer> getOnlineComputers() {
+        return computerRepository.findByStatus("ONLINE");
+    }
+
+    @Override
+    public List<Computer> getOfflineComputers() {
+        return computerRepository.findByStatus("OFFLINE");
+    }
+
+    @Override
+    public void heartbeat(Long computerId) {
+        Computer computer = getComputerById(computerId);
+        computer.setStatus("ONLINE");
+        computer.setLastSeen(LocalDateTime.now());
+        computerRepository.save(computer);
+    }
+
+    @Override
+    public List<Computer> getComputersByLab(String labRoom) {
+        return computerRepository.findByLabRoom(labRoom);
+    }
+
+    @Override
+    public long countAllComputers() {
+        return computerRepository.count();
+    }
+
+    @Override
+    public long countOnlineComputers() {
+        return computerRepository.countByStatus("ONLINE");
+    }
+
+    @Override
+    public long countOfflineComputers() {
+        return computerRepository.countByStatus("OFFLINE");
     }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -34,7 +35,7 @@ public class Computer {
     private String status;
 
     @Column(name = "last_seen")
-    private Instant lastSeen;
+    private LocalDateTime lastSeen;
 
     public Long getId() {
         return id;
@@ -84,11 +85,11 @@ public class Computer {
         this.status = status;
     }
 
-    public Instant getLastSeen() {
+    public LocalDateTime getLastSeen() {
         return lastSeen;
     }
 
-    public void setLastSeen(Instant lastSeen) {
+    public void setLastSeen(LocalDateTime lastSeen) {
         this.lastSeen = lastSeen;
     }
 

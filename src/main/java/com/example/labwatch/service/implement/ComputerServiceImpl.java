@@ -22,7 +22,7 @@ public class ComputerServiceImpl implements ComputerService {
     @Override
     public Computer getComputerById(Long id) {
         return computerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Computer not found"));
+                .orElseThrow(() -> new RuntimeException("Компьютер олдсонгүй!"));
     }
 
     @Override

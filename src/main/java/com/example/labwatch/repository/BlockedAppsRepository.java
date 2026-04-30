@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BlockedAppsRepository extends JpaRepository<BlockedApp, Long> {
+    boolean existsByAppNameIgnoreCase(String appName);
 }

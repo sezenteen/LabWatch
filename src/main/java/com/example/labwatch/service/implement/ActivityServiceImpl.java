@@ -23,7 +23,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Activity getActivityById(Long id) {
         return activityRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Activity not found"));
+                .orElseThrow(() -> new RuntimeException("Ямар нэгэн үйлдэл илэрсэнгүй."));
     }
 
     @Override

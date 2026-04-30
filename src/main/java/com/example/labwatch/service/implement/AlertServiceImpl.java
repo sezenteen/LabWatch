@@ -22,7 +22,7 @@ public class AlertServiceImpl implements AlertService {
     @Override
     public Alert getAlertById(Long id) {
         return alertRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Alert not found"));
+                .orElseThrow(() -> new RuntimeException("Мэдэгдэл байхгүй!"));
     }
 
     @Override

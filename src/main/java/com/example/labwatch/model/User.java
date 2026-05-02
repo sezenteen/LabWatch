@@ -11,6 +11,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idusers", nullable = false)
@@ -30,6 +31,13 @@ public class User {
 
     @Column(name = "created_at")
     private Instant createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = Instant.now();
+        }
+    }
 
     public Long getId() {
         return id;

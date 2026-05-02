@@ -68,6 +68,14 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
+    public void markOffline(Long computerId) {
+        Computer computer = getComputerById(computerId);
+        computer.setStatus("OFFLINE");
+        computer.setLastSeen(LocalDateTime.now());
+        computerRepository.save(computer);
+    }
+
+    @Override
     public List<Computer> getComputersByLab(String labRoom) {
         return computerRepository.findByLabRoom(labRoom);
     }

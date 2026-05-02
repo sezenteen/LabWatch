@@ -19,6 +19,36 @@ public class ComputerController {
         return computerService.getAllComputers();
     }
 
+    @GetMapping("/online")
+    public List<Computer> getOnlineComputers() {
+        return computerService.getOnlineComputers();
+    }
+
+    @GetMapping("/offline")
+    public List<Computer> getOfflineComputers() {
+        return computerService.getOfflineComputers();
+    }
+
+    @GetMapping("/lab/{labRoom}")
+    public List<Computer> getComputersByLab(@PathVariable String labRoom) {
+        return computerService.getComputersByLab(labRoom);
+    }
+
+    @GetMapping("/count")
+    public long countAllComputers() {
+        return computerService.countAllComputers();
+    }
+
+    @GetMapping("/count/online")
+    public long countOnlineComputers() {
+        return computerService.countOnlineComputers();
+    }
+
+    @GetMapping("/count/offline")
+    public long countOfflineComputers() {
+        return computerService.countOfflineComputers();
+    }
+
     @GetMapping("/{id}")
     public Computer getComputerById(@PathVariable Long id) {
         return computerService.getComputerById(id);
@@ -32,6 +62,18 @@ public class ComputerController {
     @PutMapping("/{id}")
     public Computer updateComputer(@PathVariable Long id, @RequestBody Computer computer){
         return computerService.updateComputer(id, computer);
+    }
+
+    @PostMapping("/{id}/heartbeat")
+    public Computer heartbeat(@PathVariable Long id) {
+        computerService.heartbeat(id);
+        return computerService.getComputerById(id);
+    }
+
+    @PostMapping("/{id}/offline")
+    public Computer markOffline(@PathVariable Long id) {
+        computerService.markOffline(id);
+        return computerService.getComputerById(id);
     }
 
     @DeleteMapping("/{id}")

@@ -18,6 +18,7 @@ public interface ComputerService {
     List<Computer> getOnlineComputers();
     List<Computer> getOfflineComputers();
     void heartbeat(Long computerId);
+    void markOffline(Long computerId);
 
 //    filtering
     List<Computer> getComputersByLab(String labRoom);
